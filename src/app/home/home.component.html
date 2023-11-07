@@ -1,0 +1,28 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side" opened>
+    <mat-nav-list>
+      <a
+        *ngFor="let navItem of navItems"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLink]="navItem.path"
+        mat-list-item
+        routerLinkActive="active-link"
+      >
+        <mat-icon matListItemIcon>{{ navItem.icon }}</mat-icon>
+        <span>{{ navItem.label }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-toolbar>
+    <button (click)="drawer.toggle()" mat-icon-button>
+      <mat-icon>lunch_dining</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <span>Butane</span>
+    <span class="spacer"></span>
+    <button mat-icon-button matTooltip="Invalidates cache and reloads page" (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

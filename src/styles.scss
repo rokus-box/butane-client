@@ -1,0 +1,58 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$theme-primary: mat.define-palette(mat.$orange-palette, 800);
+$theme-accent: mat.define-palette(mat.$cyan-palette);
+$theme-warn: mat.define-palette(mat.$red-palette);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: "JetBrains Mono, monospace",
+      ),
+  )
+);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($dark-theme);
+
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.spacer {
+  flex: 1 1;
+}
+
+.mat-success {
+  color: #00c853;
+}

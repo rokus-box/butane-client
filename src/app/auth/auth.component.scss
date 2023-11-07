@@ -1,0 +1,37 @@
+:host {
+  i {
+    color: #ef6c00;
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+
+    mat-card-header {
+      display: flex;
+      justify-content: center;
+    }
+
+    mat-card-content {
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+
+      .oauth-btn {
+        border-radius: 50px;
+        display: flex;
+        padding: 1.5em;
+        justify-content: flex-start;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  mat-progress-bar {
+    z-index: 100000;
+  }
+}

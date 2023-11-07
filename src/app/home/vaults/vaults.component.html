@@ -1,0 +1,21 @@
+<h1>anansi</h1>
+<main>
+  <mat-card *ngFor="let i of [1, 2, 3, 4, 5]">
+    <mat-card-header>
+      <mat-card-title>{{ vaults[0]?.display_name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <a [routerLink]="['/vaults', vaults[0]?.id]" color="primary" mat-button>
+        <mat-icon>open_in_new</mat-icon>
+        Open
+      </a>
+      <span class="spacer"></span>
+      <button [matTooltip]="'Delete ' + vaults[0].display_name" color="warn" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button matTooltip="Edit Vault" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</main>

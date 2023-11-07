@@ -1,0 +1,93 @@
+<main>
+  <h2><i>Butane</i>: Explosive Vault</h2>
+  <mat-card>
+    <ng-container *ngIf="totpObj != null; else first; then: second" />
+    <mat-card-footer>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</main>
+
+<ng-template #first>
+  <mat-card-header>
+    <mat-card-title>Start using Butane</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <button
+      [disabled]="loading"
+      class="oauth-btn"
+      (click)="popGoogle(googleUrl)"
+      mat-stroked-button>
+      <mat-icon svgIcon="google" />
+      Continue with Google
+    </button>
+    <button [disabled]="loading" class="oauth-btn" mat-stroked-button>
+      <mat-icon svgIcon="twitter-x" />
+      Continue with X
+    </button>
+    <button [disabled]="loading" class="oauth-btn" mat-stroked-button>
+      <mat-icon svgIcon="discord" />
+      Continue with Discord
+    </button>
+  </mat-card-content>
+</ng-template>
+
+<ng-template #second>
+  <mat-card-header>
+    <mat-card-subtitle *ngIf="registering">{{
+      registering.checked
+        ? "Please scan the QR code with your authenticator app."
+        : "Enter the code from your authenticator app."
+    }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-slide-toggle
+      #registering
+      (change)="onRegisteringChanged(registering.checked)"
+      labelPosition="before"
+      [checked]="isRegistering"
+    >
+      I'm registering
+    </mat-slide-toggle>
+    <qrcode
+      *ngIf="registering.checked"
+      [qrdata]="totpObj!.url"
+      errorCorrectionLevel="H"
+    />
+    <mat-form-field *ngIf="registering.checked" appearance="outline">
+      <mat-label>Secret Key</mat-label>
+      <input
+        matInput
+        disabled
+        [value]="totpObj!.secret.slice(0, 6) + '•'.repeat(10)"
+      />
+      <button
+        mat-icon-button
+        matIconSuffix
+        (click)="snack.open('Copied to clipboard', '', { duration: 2000 })"
+        [cdkCopyToClipboard]="totpObj!.secret"
+      >
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input
+        [showMaskTyped]="true"
+        mask="000-000"
+        [(ngModel)]="otpCode"
+        matInput
+      />
+      <mat-icon svgIcon="twofa" matSuffix />
+    </mat-form-field>
+    <button
+      [disabled]="loading"
+      (click)="authorize()"
+      color="primary"
+      mat-stroked-button
+    >
+      Let me in!
+    </button>
+  </mat-card-content>
+</ng-template>
+
+<app-flame></app-flame>
