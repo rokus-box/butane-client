@@ -1,5 +1,5 @@
 <mat-drawer-container autosize>
-  <mat-drawer #drawer mode="side" opened>
+  <mat-drawer #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()">
     <mat-nav-list>
       <a
         *ngFor="let navItem of navItems"
@@ -20,7 +20,7 @@
     <span class="spacer"></span>
     <span>Butane</span>
     <span class="spacer"></span>
-    <button mat-icon-button matTooltip="Invalidates cache and reloads page" (click)="refresh()">
+    <button mat-icon-button matTooltip="Invalidates all cache and reloads page" (click)="refresh()">
       <mat-icon>refresh</mat-icon>
     </button>
   </mat-toolbar>

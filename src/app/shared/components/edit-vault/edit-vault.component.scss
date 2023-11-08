@@ -1,0 +1,12 @@
+:host {
+  mat-card {
+    display: flex;
+    padding: 1em;
+    gap: 1em;
+    min-width: 20em;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}

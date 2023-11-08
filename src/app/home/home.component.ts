@@ -28,4 +28,6 @@ export class HomeComponent {
   constructor() {}
 
   refresh() {}
+
+  isMobile = () => window.innerWidth < 768;
 }

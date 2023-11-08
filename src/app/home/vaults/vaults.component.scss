@@ -1,7 +1,16 @@
 :host {
+  form {
+    padding: 1em;
+    display: flex;
+    gap: 1em;
+
+    button {
+      padding: 1.94em;
+    }
+  }
+
   main {
-    max-width: 1200px;
-    margin: auto;
+    padding: 1em;
     display: grid;
     gap: 1rem;
 

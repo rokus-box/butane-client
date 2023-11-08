@@ -55,12 +55,8 @@ export class AuthComponent {
     );
   }
 
-  setLoading(loading: boolean) {
-    this.loading = loading;
-  }
-
   popGoogle(url: string) {
-    this.setLoading(true);
+    this.loading = true;
     const popup = window.open(url, 'name', 'height=600,width=450');
     if (null != window.focus && null != popup) {
       popup.focus();
@@ -69,7 +65,7 @@ export class AuthComponent {
     const interval = setInterval(() => {
       if (popup?.closed) {
         clearInterval(interval);
-        this.setLoading(false);
+        this.loading = false;
         try {
           const code = new URL(popup!.location.href).searchParams.get('code');
           if (null == code || '' == code) {
@@ -95,7 +91,7 @@ export class AuthComponent {
   }
 
   async authorize() {
-    this.setLoading(true);
+    this.loading = true;
     firstValueFrom(
       this.http.post(
         `${API_URL}/oauth/${this.currentProvider}/authenticate`,
@@ -109,7 +105,7 @@ export class AuthComponent {
       ),
     )
       .then(async (res) => {
-        this.setLoading(false);
+        this.loading = false;
         await this.dbService.saveToken(res);
         await this.router.navigate(['home']);
       })
@@ -128,7 +124,7 @@ export class AuthComponent {
           });
         }
 
-        this.setLoading(false);
+        this.loading = false;
         this.totpObj = null;
         this.otpCode = '';
         this.oauthCode = '';

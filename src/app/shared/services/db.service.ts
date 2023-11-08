@@ -4,7 +4,6 @@ import Dexie, { Table } from 'dexie';
 export type Vault = {
   id: string;
   display_name: string;
-  secrets: Secret[];
 };
 
 export type Secret = {
@@ -30,6 +29,7 @@ export type AppDatabase = {
 export class DbService extends Dexie {
   vaults: Table<Vault, string>;
   app: Table<AppDatabase, string>;
+
   constructor() {
     super('$');
 
@@ -46,8 +46,8 @@ export class DbService extends Dexie {
   async getToken() {
     const data = await this.app.get('token').catch(() => null);
     if (null == data) {
-      throw new Error('No token found');
+      return '';
     }
-    return data.token as string;
+    return data!.token as string;
   }
 }

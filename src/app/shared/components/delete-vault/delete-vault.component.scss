@@ -1,0 +1,36 @@
+:host {
+  mat-card {
+    display: flex;
+    gap: 1em;
+    min-width: 20em;
+    font-size: 0.9em;
+    max-width: 40em;
+
+    mat-form-field {
+      padding-top: 1em;
+      margin-bottom: -1em;
+    }
+
+    mat-card-content {
+      user-select: none;
+    }
+
+    div {
+      mat-icon {
+        padding-right: 0.5em;
+        color: #be8f44;
+      }
+
+      display: flex;
+      align-items: center;
+      padding: 1.5em;
+      background-color: #00000045;
+      border-top: 1px solid #be8f44;
+      border-bottom: 1px solid #be8f44;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}

@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule, Routes } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const routes: Routes = [
   {
@@ -41,6 +42,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
+    MatProgressBarModule,
   ],
   exports: [RouterModule],
 })

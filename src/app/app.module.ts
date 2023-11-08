@@ -5,11 +5,16 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/guards/auth.guard';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ClassValidatorFormBuilderModule } from 'ngx-reactive-form-class-validator';
 
 const routes: Routes = [
   {
@@ -32,11 +37,19 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ClassValidatorFormBuilderModule.forRoot(),
+    MatSnackBarModule,
+    MatDialogModule,
     MatCardModule,
     MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule],
-  providers: [provideEnvironmentNgxMask()],
+  providers: [
+    provideEnvironmentNgxMask(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
