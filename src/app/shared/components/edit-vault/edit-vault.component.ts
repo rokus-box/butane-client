@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Vault } from '../../services/db.service';
+import { Vault } from '../../services/in-memory.service';
 import { VaultService } from '../../services/vault.service';
 import { ClassValidatorFormBuilderService } from 'ngx-reactive-form-class-validator';
 import { getFirstError } from '../../helpers/getFirstError';
@@ -19,7 +19,7 @@ export class UpdateVaultForm {
 export class EditVaultComponent {
   loading = false;
   updateVaultForm = this.fb.group(UpdateVaultForm, {
-    displayName: [this.data.display_name],
+    displayName: this.data.display_name,
   });
 
   constructor(
@@ -30,12 +30,20 @@ export class EditVaultComponent {
   ) {}
 
   async updateVault() {
+    if (
+      this.data.display_name ===
+      this.updateVaultForm.controls['displayName'].value
+    ) {
+      this.ref.close(false);
+      return;
+    }
+
     this.loading = true;
 
-    await this.vaultService.updateVault({
-      id: this.data.id,
-      display_name: this.updateVaultForm.controls['displayName'].value,
-    });
+    await this.vaultService.updateVault(
+      this.data.id,
+      this.updateVaultForm.controls['displayName'].value,
+    );
 
     this.ref.close(true);
   }

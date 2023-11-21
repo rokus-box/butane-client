@@ -3,6 +3,22 @@
     color: #ef6c00;
   }
 
+  a {
+    &:hover {
+      color: rgb(255, 205, 164);
+    }
+
+    color: #ef6c00;
+    text-decoration: none;
+
+  }
+
+  .vr {
+    border-left: 1px solid #ef6c00;
+    height: 2em;
+    margin: 0 0.5em 0 0;
+  }
+
   main {
     display: flex;
     justify-content: center;
@@ -28,6 +44,12 @@
         justify-content: flex-start;
         flex-shrink: 0;
       }
+    }
+  }
+
+  form {
+    mat-form-field {
+      width: 100%;
     }
   }
 

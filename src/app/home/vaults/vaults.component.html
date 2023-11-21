@@ -1,16 +1,20 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate" />
 <form>
-  <button type="button" mat-stroked-button color="accent" (click)="createVault()">
+  <button
+    [disabled]="loading"
+    type="button"
+    mat-stroked-button
+    color="accent"
+    (click)="createVault()"
+  >
     Create Vault
     <mat-icon>add</mat-icon>
   </button>
-  <mat-form-field appearance="outline">
-    <input matInput placeholder="Search Vaults" />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
 </form>
 <main>
-  <i *ngIf="!loading && vaults.length === 0">Looks like you don't have any Vaults yet. Create one to get started!</i>
+  <i *ngIf="!loading && vaults.length === 0"
+  >Looks like you don't have any Vaults yet. Create one to get started!</i
+  >
   <mat-card *ngFor="let vault of vaults">
     <mat-card-header>
       <mat-card-title>{{ vault.display_name }}</mat-card-title>
@@ -29,7 +33,7 @@
         <mat-icon>edit</mat-icon>
       </button>
       <button
-        [matTooltip]='"Delete \"" + vault.display_name  + "\""'
+        [matTooltip]="'Delete &quot;' + vault.display_name + '&quot;'"
         color="warn"
         mat-icon-button
         (click)="deleteVault(vault)"

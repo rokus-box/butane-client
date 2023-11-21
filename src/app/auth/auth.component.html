@@ -6,6 +6,16 @@
       <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
   </mat-card>
+  <br />
+  <div>
+    <a class="footer-link" routerLink="/pp" target="_blank" rel="noopener">
+      Privacy Policy
+    </a>
+    <span class="vr"></span>
+    <a class="footer-link" routerLink="/tos" target="_blank" rel="noopener">
+      Terms of Service
+    </a>
+  </div>
 </main>
 
 <ng-template #first>
@@ -17,7 +27,8 @@
       [disabled]="loading"
       class="oauth-btn"
       (click)="popGoogle(googleUrl)"
-      mat-stroked-button>
+      mat-stroked-button
+    >
       <mat-icon svgIcon="google" />
       Continue with Google
     </button>
@@ -38,7 +49,7 @@
       registering.checked
         ? "Please scan the QR code with your authenticator app."
         : "Enter the code from your authenticator app."
-    }}</mat-card-subtitle>
+      }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-slide-toggle
@@ -79,8 +90,18 @@
       />
       <mat-icon svgIcon="twofa" matSuffix />
     </mat-form-field>
+    <form [formGroup]="authFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" matInput />
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error>{{
+          getFirstError(authFormGroup.controls["password"])
+          }}</mat-error>
+      </mat-form-field>
+    </form>
     <button
-      [disabled]="loading"
+      [disabled]="loading || authFormGroup.invalid || otpCode.length != 6"
       (click)="authorize()"
       color="primary"
       mat-stroked-button
@@ -89,5 +110,4 @@
     </button>
   </mat-card-content>
 </ng-template>
-
 <app-flame></app-flame>

@@ -5,7 +5,7 @@ import { ClassValidatorFormBuilderService } from 'ngx-reactive-form-class-valida
 import { getFirstError } from '../../helpers/getFirstError';
 import { Length } from 'class-validator';
 
-export class UpdateVaultForm {
+export class CreateVaultForm {
   @Length(2, 32, { message: 'Must be between 2 and 32 characters' })
   displayName: string;
 }
@@ -17,8 +17,8 @@ export class UpdateVaultForm {
 })
 export class CreateVaultComponent {
   loading = false;
-  createVaultForm = this.fb.group(UpdateVaultForm, {
-    displayName: [],
+  createVaultForm = this.fb.group(CreateVaultForm, {
+    displayName: '',
   });
 
   constructor(
@@ -29,11 +29,9 @@ export class CreateVaultComponent {
 
   async createVault() {
     this.loading = true;
-
     await this.vaultService.createVault(
       this.createVaultForm.controls['displayName'].value,
     );
-
     this.ref.close(true);
   }
 

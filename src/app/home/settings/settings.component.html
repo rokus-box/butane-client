@@ -1,1 +1,71 @@
-<p>settings works!</p>
+<main>
+  <i *ngIf="isMobile">
+    Some settings are not available on mobile devices since they cannot be
+    displayed properly (yet)
+  </i>
+  <mat-list>
+    <div mat-subheader>General</div>
+    <mat-list-item>
+      <mat-icon matListItemIcon>contrast</mat-icon>
+      <div matListItemTitle>
+        <div>
+          Change Theme
+          <span class="spacer"></span>
+          <button mat-icon-button (click)="toggleLightTheme()">
+            <mat-icon [@themeButtonAnimation]="themeButtonState">{{
+              themeService.isLightTheme() ? "brightness_4" : "brightness_7"
+              }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-list-item>
+    <mat-list-item *ngIf="!isMobile">
+      <mat-icon matListItemIcon>abc</mat-icon>
+      <div matListItemTitle>
+        <div>
+          <span>Password Generator Character Set</span>
+          <mat-form-field
+            [ngStyle]="{
+              'width.ch': charsInputFc.value?.length,
+              'min-width.ch': 24
+            }"
+          >
+            <mat-label>{{
+              charsInputFc.errors?.["required"]
+                ? "Required"
+                : charsInputFc.errors?.["minlength"]
+                  ? "Minimum 26 characters"
+                  : charsInputFc.errors?.["maxlength"]
+                    ? "Maximum 94 characters"
+                    : "Character Set"
+              }}</mat-label>
+            <input [formControl]="charsInputFc" matInput placeholder="ABC" />
+            <mat-error>Anansi</mat-error>
+          </mat-form-field>
+          <mat-slider min="8" max="64">
+            <input [formControl]="charLengthSlider" matSliderThumb />
+          </mat-slider>
+          <span>{{ charLengthSlider.value }} Long</span>
+        </div>
+      </div>
+    </mat-list-item>
+    <br />
+    <mat-divider></mat-divider>
+    <div mat-subheader>Security</div>
+    <mat-list-item>
+      <mat-icon matListItemIcon color="accent">shield</mat-icon>
+      <div matListItemTitle>
+        <div>
+          Enable MFA
+          <span class="spacer"></span>
+          <mat-slide-toggle
+            (mouseenter)="escapeFromCursor(twofaToggle)"
+            #twofaToggle
+            checked
+            (click)="twofaToggle.writeValue(true)"
+          />
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</main>

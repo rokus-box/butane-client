@@ -1,15 +1,21 @@
 <mat-drawer-container autosize>
-  <mat-drawer #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()">
+  <mat-drawer #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
     <mat-nav-list>
       <a
         *ngFor="let navItem of navItems"
         [routerLinkActiveOptions]="{ exact: true }"
         [routerLink]="navItem.path"
         mat-list-item
+        (click)="isMobile && drawer.toggle()"
         routerLinkActive="active-link"
       >
         <mat-icon matListItemIcon>{{ navItem.icon }}</mat-icon>
         <span>{{ navItem.label }}</span>
+      </a>
+      <br />
+      <a mat-list-item (click)="logout()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span>Log out</span>
       </a>
     </mat-nav-list>
   </mat-drawer>
@@ -18,11 +24,13 @@
       <mat-icon>lunch_dining</mat-icon>
     </button>
     <span class="spacer"></span>
-    <span>Butane</span>
+    <span *ngIf="!isMobile">Butane</span>
     <span class="spacer"></span>
-    <button mat-icon-button matTooltip="Invalidates all cache and reloads page" (click)="refresh()">
-      <mat-icon>refresh</mat-icon>
+    <button color="accent" mat-stroked-button (click)="genPassword()">
+      <mat-icon>content_copy</mat-icon>
+      Copy Random Password
     </button>
+    <span *ngIf="isMobile" class="spacer"></span>
   </mat-toolbar>
   <router-outlet></router-outlet>
 </mat-drawer-container>

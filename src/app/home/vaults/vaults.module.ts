@@ -14,7 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CreateVaultComponent } from '../../shared/components/create-vault/create-vault.component';
 import { DeleteVaultComponent } from '../../shared/components/delete-vault/delete-vault.component';
 
-const routes: Routes = [{ path: '', component: VaultsComponent }];
+const routes: Routes = [
+  { path: '', component: VaultsComponent },
+  {
+    path: ':id',
+    loadChildren: () =>
+      import('./secrets/secrets.module').then((m) => m.SecretsModule),
+  },
+];
 
 @NgModule({
   declarations: [

@@ -1,10 +1,10 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { DbService } from '../services/db.service';
+import { InMemoryService } from '../services/in-memory.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const AuthGuard: CanActivateFn = async (route, state) => {
-  const db = inject(DbService);
+  const db = inject(InMemoryService);
   const router = inject(Router);
   const snack = inject(MatSnackBar);
 

@@ -15,12 +15,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ClassValidatorFormBuilderModule } from 'ngx-reactive-form-class-validator';
+import { TosComponent } from './auth/components/tos/tos.component';
+import { PpComponent } from './auth/components/pp/pp.component';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
+  { path: 'tos', loadComponent: () => TosComponent },
+  { path: 'pp', loadComponent: () => PpComponent },
   {
     path: '',
     canActivate: [AuthGuard],
@@ -37,13 +41,14 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ClassValidatorFormBuilderModule.forRoot(),
     MatSnackBarModule,
     MatDialogModule,
     MatCardModule,
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
+
+    ClassValidatorFormBuilderModule.forRoot(),
   ],
   exports: [RouterModule],
   providers: [

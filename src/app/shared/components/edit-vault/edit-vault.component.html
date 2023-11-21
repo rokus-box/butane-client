@@ -2,12 +2,12 @@
 <mat-card>
   <mat-card-title>Edit Vault</mat-card-title>
   <form [formGroup]="updateVaultForm">
-    <mat-form-field appearance="fill">
+    <mat-form-field>
       <mat-label>Display Name</mat-label>
       <input formControlName="displayName" matInput required />
       <mat-error>{{
         getFirstError(updateVaultForm.controls["displayName"])
-      }}</mat-error>
+        }}</mat-error>
     </mat-form-field>
   </form>
   <mat-card-actions>

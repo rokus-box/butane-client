@@ -13,7 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { NgxMaskDirective } from 'ngx-mask';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlameComponent } from '../shared/components/flame/flame.component';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -46,6 +46,7 @@ const routes: Routes = [
     ClipboardModule,
     NgxMaskDirective,
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule],
 })

@@ -1,0 +1,59 @@
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CryptoService {
+  private sodium: any = window['sodium' as any];
+
+  constructor(private snack: MatSnackBar) {}
+
+  async generateKey(material: string): Promise<string> {
+    const key = await this.sodium.crypto_generichash(32, material);
+
+    sessionStorage.setItem('key', this.sodium.to_base64(key));
+
+    return this.sodium.to_base64(key);
+  }
+
+  async encrypt(data: string): Promise<string> {
+    const key = sessionStorage.getItem('key');
+    try {
+      const nonce = await this.sodium.randombytes_buf(24);
+      const cipher = await this.sodium.crypto_secretbox_easy(
+        data,
+        nonce,
+        this.sodium.from_base64(key),
+      );
+
+      return this.sodium.to_base64(nonce) + this.sodium.to_base64(cipher);
+    } catch (e) {
+      console.log('e', e);
+      this.snack.open('Error encrypting some items', 'Dismiss', {
+        duration: 5000,
+      });
+      return '';
+    }
+  }
+
+  async decrypt(data: string): Promise<string> {
+    const key = sessionStorage.getItem('key');
+    try {
+      const nonce = this.sodium.from_base64(data.slice(0, 32));
+      const cipher = this.sodium.from_base64(data.slice(32));
+      return this.sodium.to_string(
+        this.sodium.crypto_secretbox_open_easy(
+          cipher,
+          nonce,
+          this.sodium.from_base64(key),
+        ),
+      );
+    } catch {
+      this.snack.open('Some items could not be decrypted', 'Dismiss', {
+        duration: 5000,
+      });
+      return '';
+    }
+  }
+}

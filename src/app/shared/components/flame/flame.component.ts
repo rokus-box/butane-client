@@ -21,11 +21,13 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
         position: fixed;
         bottom: 0;
         right: 0;
+
         canvas {
           position: fixed;
           bottom: 14rem;
           right: 0.5rem;
         }
+
         img {
           position: fixed;
           right: 0;
@@ -47,17 +49,18 @@ export class FlameComponent implements AfterViewInit {
       // Decrease opacity of canvas gradually and then remove it eventually to not hurt performance
       for (let i = 0; i < 100; i++) {
         setTimeout(() => {
-          canvas!.style.opacity = (100 - i) / 100 + '';
+          canvas.style.opacity = (100 - i) / 100 + '';
         }, i * 10);
       }
 
       setTimeout(() => {
-        canvas!.remove();
+        canvas.remove();
       }, 1000);
     }, 60000 * 5);
 
     class Particle {
       [x: string]: any;
+
       constructor() {
         this['loc'] = { x: canvas.width / 2, y: canvas.height / 2 + 50 };
         this['speed'] = { x: Math.random() * 5, y: -15 + Math.random() * 10 };
@@ -84,6 +87,7 @@ export class FlameComponent implements AfterViewInit {
       requestAnimationFrame(loop);
       draw();
     }
+
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillRect(0, 0, canvas.width, canvas.height);

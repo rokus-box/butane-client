@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Vault } from '../../services/db.service';
+import { Vault } from '../../services/in-memory.service';
 import { VaultService } from '../../services/vault.service';
 
 @Component({
@@ -20,11 +20,7 @@ export class DeleteVaultComponent {
 
   async deleteVault() {
     this.loading = true;
-
     await this.vaultService.deleteVault(this.vault.id);
-
-    this.loading = false;
-
     this.ref.close(true);
   }
 }
