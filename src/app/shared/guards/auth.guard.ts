@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { InMemoryService } from '../services/in-memory.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-export const AuthGuard: CanActivateFn = async (route, state) => {
+export const AuthGuard: CanActivateFn = async () => {
   const db = inject(InMemoryService);
   const router = inject(Router);
   const snack = inject(MatSnackBar);
