@@ -43,7 +43,7 @@ export class AuthComponent {
   isRegistering = true;
 
   googleUrl =
-    'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fauth%2Fgoogle&client_id=470074248070-456k1vvum68rqg85u4ritcqcseqfs4br.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email';
+    'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:4200/auth/google&client_id=470074248070-456k1vvum68rqg85u4ritcqcseqfs4br.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.email';
 
   authFormGroup = this.fb.group(PasswordForm, {
     password: ['testPhrase1*'],

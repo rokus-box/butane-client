@@ -6,7 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -38,7 +37,6 @@ const routes: Routes = [
     MatIconModule,
     MatProgressBarModule,
     MatButtonModule,
-    NgxSpinnerModule,
     QRCodeModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,

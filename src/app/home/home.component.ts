@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { generatePassword } from '../shared/helpers/generatePassword';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { InMemoryService } from '../shared/services/in-memory.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { API_URL } from '../shared/constant';
+import { InMemoryService } from '../shared/services/in-memory.service';
 
 type NavItem = {
   label: string;
@@ -27,16 +30,12 @@ export class HomeComponent {
       path: 'settings',
       icon: 'settings',
     },
-    {
-      label: 'Sessions',
-      path: 'sessions',
-      icon: 'group',
-    },
   ];
 
   constructor(
     private snack: MatSnackBar,
-    private dbService: InMemoryService,
+    private http: HttpClient,
+    private cache: InMemoryService,
     private router: Router,
   ) {}
 
@@ -56,7 +55,29 @@ export class HomeComponent {
   }
 
   async logout() {
-    sessionStorage.clear();
-    await this.router.navigate(['auth']);
+    this.router.navigate(['auth']);
+
+    firstValueFrom(
+      this.http.delete(`${API_URL}/session`, {
+        headers: {
+          Authorization: await this.cache.getToken(),
+        },
+      }),
+    )
+      .then(() => {
+        this.snack.open('Logged out!', 'Dismiss', {
+          verticalPosition: 'top',
+          duration: 3000,
+        });
+      })
+      .catch((err) => {
+        console.log({ err });
+        this.snack.open('Something went wrong. Please try again.', 'Dismiss', {
+          duration: 5000,
+        });
+      })
+      .finally(() => {
+        sessionStorage.clear();
+      });
   }
 }
