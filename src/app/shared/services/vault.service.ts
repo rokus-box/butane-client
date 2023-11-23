@@ -197,7 +197,7 @@ export class VaultService {
       ...(secret?.uri && { uri: secret.uri }),
       ...(secret?.username && { username: secret.username }),
       ...(secret?.password && { password: secret.password }),
-      ...(metadata.length > 0 && { metadata }),
+      ...(metadata.length > 0 && { metadata: secret.metadata }),
     } as Secret;
 
     const vault = this.vaults.find((vault) => vault.id === vaultId);
