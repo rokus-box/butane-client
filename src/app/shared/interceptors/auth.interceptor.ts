@@ -32,15 +32,9 @@ export class AuthInterceptor implements HttpInterceptor {
           });
           await this.router.navigate(['auth']);
         } else {
-          if (err.error) {
-            this.snack.open(err.error, '', {
-              duration: 5000,
-            });
-          } else {
-            this.snack.open(err.statusText, '', {
-              duration: 5000,
-            });
-          }
+          this.snack.open(err.statusText, '', {
+            duration: 5000,
+          });
         }
         throw err;
       }),
