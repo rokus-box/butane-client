@@ -1,7 +1,7 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate" />
 <form>
   <button
-    [disabled]="loading"
+    [disabled]="loading || vaults.length > 8"
     type="button"
     mat-stroked-button
     color="accent"
@@ -43,3 +43,9 @@
     </mat-card-actions>
   </mat-card>
 </main>
+<i
+  matTooltip="You can create up to 9 Vaults and 180 Secrets total"
+  style="margin-left: 1em"
+  *ngIf="!loading"
+>{{ vaults.length }} / 9</i
+>
