@@ -9,6 +9,14 @@ export class CryptoService {
 
   constructor(private snack: MatSnackBar) {}
 
+  async sha1(message: string) {
+    const buffer = new TextEncoder().encode(message);
+    const digest = await crypto.subtle.digest('SHA-1', buffer);
+    return Array.from(new Uint8Array(digest), (byte) =>
+      byte.toString(16).padStart(2, '0'),
+    ).join('');
+  }
+
   async generateKey(material: string): Promise<string> {
     const key = await this.sodium.crypto_generichash(32, material);
 

@@ -1,0 +1,88 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<main>
+  <mat-card>
+    <mat-progress-bar
+      *ngIf="haveIBeenPwnedRunning"
+      mode="indeterminate"
+    ></mat-progress-bar>
+    <mat-card-header>
+      <mat-card-subtitle>Check Pwned Passwords</mat-card-subtitle>
+      <mat-card-subtitle
+      >This service checks every Secret in your
+        <a routerLink="../home">Vaults</a> to find out if any of your passwords
+        has been compromised in a data breach through Have I Been Pwned's
+        <a
+          target="_blank"
+          href="https://haveibeenpwned.com/API/v2#PwnedPasswords"
+        >Pwned Passwords</a
+        >
+        API.
+      </mat-card-subtitle>
+    </mat-card-header>
+    <br />
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button
+        (click)="runHaveIBeenPwned()"
+        [disabled]="haveIBeenPwnedRunning || loading"
+        [ngClass]="{ rerun: !haveIBeenPwnedRunning && !loading }"
+        mat-button
+        matTooltip="This will take a while depending on the number of Secrets you have."
+      >
+        <mat-icon>settings</mat-icon>
+        {{ haveIBeenPwnedRunning ? "Running..." : "Run" }}
+      </button>
+      <button
+        (click)="cancelHaveIBeenPwned()"
+        color="warn"
+        [disabled]="!haveIBeenPwnedRunning"
+        mat-button
+      >
+        <mat-icon>cancel</mat-icon>
+        Cancel Execution
+      </button>
+      <span class="spacer"></span>
+      <mat-card-subtitle *ngIf="!isMobile">
+        Total breached passwords: {{ pwnedSecrets.length | number }}
+      </mat-card-subtitle>
+    </mat-card-actions>
+    <div>
+      <mat-divider *ngIf="pwnedSecrets.length"></mat-divider>
+      <br *ngIf="pwnedSecrets.length" />
+      <div *ngFor="let secret of pwnedSecrets">
+        <mat-card-subtitle
+        ><a
+          matTooltip="Click to update your breached password"
+          (click)="editSecret(secret)"
+        >{{ secret.display_name }}</a
+        >
+          has been seen {{ secret.count | number }} times in breaches
+        </mat-card-subtitle>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+  </mat-card>
+  <br />
+  <mat-card>
+    <mat-card-header>
+      <mat-card-subtitle>Export Vaults</mat-card-subtitle>
+      <mat-card-subtitle>
+        This service exports your Vaults <strong>(decrypted)</strong> to a JSON file.
+        Importing feature is not yet available and will be added in the future.
+      </mat-card-subtitle>
+    </mat-card-header>
+    <br />
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button
+        [disabled]="loading"
+        (click)="exportVaults()"
+        color="accent"
+        mat-button
+      >
+        <mat-icon>file_download</mat-icon>
+        Export
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</main>

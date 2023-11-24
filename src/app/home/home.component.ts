@@ -30,6 +30,11 @@ export class HomeComponent {
       path: 'settings',
       icon: 'settings',
     },
+    {
+      label: 'Services',
+      path: 'services',
+      icon: 'construction',
+    },
   ];
 
   constructor(

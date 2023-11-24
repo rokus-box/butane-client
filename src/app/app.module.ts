@@ -17,6 +17,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ClassValidatorFormBuilderModule } from 'ngx-reactive-form-class-validator';
 import { TosComponent } from './auth/components/tos/tos.component';
 import { PpComponent } from './auth/components/pp/pp.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -47,6 +49,8 @@ const routes: Routes = [
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatTooltipModule,
+    MatSelectModule,
 
     ClassValidatorFormBuilderModule.forRoot(),
   ],

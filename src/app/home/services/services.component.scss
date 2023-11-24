@@ -1,0 +1,28 @@
+:host {
+  main {
+    padding: 1em;;
+
+    a {
+      color: #ef6c00;
+      cursor: pointer;
+    }
+
+    mat-card-subtitle:nth-child(1) {
+      color: unset;
+    }
+
+    mat-card {
+      max-width: 40em;
+
+      div {
+        mat-card-subtitle {
+          padding: 0.3em;
+        }
+      }
+    }
+  }
+}
+
+.rerun {
+  color: #00a8f6;
+}

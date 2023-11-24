@@ -26,6 +26,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./settings/settings.module').then((m) => m.SettingsModule),
       },
+      {
+        path: 'services',
+        loadChildren: () =>
+          import('./services/services.module').then((m) => m.ServicesModule),
+      },
       { path: '**', redirectTo: 'vaults' },
     ],
   },
