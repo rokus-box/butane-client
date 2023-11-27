@@ -45,6 +45,9 @@ export class AuthComponent {
   googleUrl =
     'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:4200/auth/google&client_id=470074248070-456k1vvum68rqg85u4ritcqcseqfs4br.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.email';
 
+  discordUrl =
+    'https://discord.com/api/oauth2/authorize?client_id=1178419723390685326&redirect_uri=http://localhost:4200/auth/discord&response_type=code&scope=email identify';
+
   authFormGroup = this.fb.group(PasswordForm, {
     password: ['testPhrase1*'],
   });
@@ -170,4 +173,39 @@ export class AuthComponent {
   }
 
   protected readonly getFirstError = getFirstError;
+
+  popDiscord(url: string) {
+    this.loading = true;
+    const popup = window.open(url, 'name', 'height=600,width=450');
+    if (null != window.focus && null != popup) {
+      popup.focus();
+    }
+
+    const interval = setInterval(() => {
+      if (popup?.closed) {
+        clearInterval(interval);
+        this.loading = false;
+        try {
+          const code = new URL(popup!.location.href).searchParams.get('code');
+          if (null == code || '' == code) {
+            this.snack.open(
+              'Something went wrong. Please try again later.',
+              '',
+              { duration: 5000 },
+            );
+
+            return;
+          }
+
+          this.oauthCode = code;
+          this.totpObj = this.totp.generateSecret(code);
+          this.currentProvider = 'discord';
+        } catch (e) {
+          this.snack.open('Something went wrong. Please try again later.', '', {
+            duration: 5000,
+          });
+        }
+      }
+    }, 1000);
+  }
 }

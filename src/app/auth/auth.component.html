@@ -32,11 +32,9 @@
       <mat-icon svgIcon="google" />
       Continue with Google
     </button>
-    <button [disabled]="loading" class="oauth-btn" mat-stroked-button>
-      <mat-icon svgIcon="twitter-x" />
-      Continue with X
-    </button>
-    <button [disabled]="loading" class="oauth-btn" mat-stroked-button>
+    <button
+      (click)="popDiscord(discordUrl)"
+      [disabled]="loading" class="oauth-btn" mat-stroked-button>
       <mat-icon svgIcon="discord" />
       Continue with Discord
     </button>
