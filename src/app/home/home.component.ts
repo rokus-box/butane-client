@@ -35,6 +35,11 @@ export class HomeComponent {
       path: 'services',
       icon: 'construction',
     },
+    {
+      label: 'Audit Log',
+      path: 'audit-log',
+      icon: 'history',
+    },
   ];
 
   constructor(

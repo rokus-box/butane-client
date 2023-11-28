@@ -1,0 +1,9 @@
+:host {
+  main {
+    padding: 1em 0 1em 0;
+
+    mat-list-item:nth-child(odd) {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}

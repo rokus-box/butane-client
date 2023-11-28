@@ -31,6 +31,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./services/services.module').then((m) => m.ServicesModule),
       },
+      {
+        path: 'audit-log',
+        loadChildren: () =>
+          import('./audit-log/audit-log.module').then((m) => m.AuditLogModule),
+      },
       { path: '**', redirectTo: 'vaults' },
     ],
   },

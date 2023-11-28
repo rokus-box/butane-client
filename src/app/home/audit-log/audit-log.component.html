@@ -1,0 +1,27 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<main>
+  <div mat-subheader>Audit Logs (last 25)
+    <mat-icon>info</mat-icon>
+  </div>
+  <mat-divider></mat-divider>
+  <ng-scrollbar style="height: 80vh">
+    <mat-list>
+      <mat-list-item *ngFor="let log of auditLogs">
+        <mat-icon
+          [style]="{
+          color: log.message.startsWith('Failed') ? '#ff1744' : ''
+        }"
+          matListItemIcon
+        >{{
+          log.message.startsWith("Failed attempt") ? "warning" : "info"
+          }}</mat-icon
+        >
+        <div matListItemTitle>{{ log.timestamp | date: "medium" }}</div>
+        <div matListItemLine>{{ log.message }}</div>
+        <div matListItemLine *ngIf="log.data">{{ log.data.ip }}
+          - {{ parseUserAgent(log.data.agent) }}</div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </ng-scrollbar>
+</main>
