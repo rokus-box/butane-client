@@ -5,9 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../shared/constant';
 import { firstValueFrom } from 'rxjs';
-import { InMemoryService } from '../shared/services/in-memory.service';
 import { TotpService } from '../shared/services/totp.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassValidatorFormBuilderService } from 'ngx-reactive-form-class-validator';
 import { Matches, MaxLength, MinLength } from 'class-validator';
 import { getFirstError } from '../shared/helpers/getFirstError';
@@ -35,6 +34,7 @@ class PasswordForm {
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
+  isMobile = window.innerWidth < 768;
   totpObj: { secret: string; url: string } | null;
   loading = false;
   otpCode = '';
@@ -57,12 +57,26 @@ export class AuthComponent {
     private domSanitizer: DomSanitizer,
     public snack: MatSnackBar,
     private http: HttpClient,
-    private dbService: InMemoryService,
+    private activated: ActivatedRoute,
     public totp: TotpService,
     private router: Router,
     private fb: ClassValidatorFormBuilderService,
     private cryptoService: CryptoService,
   ) {
+    let provider = this.activated.snapshot.queryParamMap.get('provider');
+    let code = this.activated.snapshot.queryParamMap.get('code');
+
+    if (performance.navigation.type == 1) {
+      provider = null;
+      code = null;
+    }
+
+    if (null != provider && null != code) {
+      this.oauthCode = code;
+      this.totpObj = this.totp.generateSecret(code);
+      this.currentProvider = provider;
+    }
+
     this.authFormGroup.markAllAsTouched();
     const isRegistering = localStorage.getItem('registering');
     if (null != isRegistering) {
@@ -76,48 +90,26 @@ export class AuthComponent {
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/google.svg'),
     );
     this.matIconRegistry.addSvgIcon(
-      'twitter-x',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/twitter-x.svg'),
-    );
-    this.matIconRegistry.addSvgIcon(
       'discord',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/discord.svg'),
     );
   }
 
   popGoogle(url: string) {
-    this.loading = true;
-    const popup = window.open(url, 'name', 'height=600,width=450');
-    if (null != window.focus && null != popup) {
-      popup.focus();
+    if (this.isMobile) {
+      window.location.href = url;
+      return;
+    }
+    this.handleDesktopOauth(url, 'google');
+  }
+
+  popDiscord(url: string) {
+    if (this.isMobile) {
+      window.location.href = url;
+      return;
     }
 
-    const interval = setInterval(() => {
-      if (popup?.closed) {
-        clearInterval(interval);
-        this.loading = false;
-        try {
-          const code = new URL(popup!.location.href).searchParams.get('code');
-          if (null == code || '' == code) {
-            this.snack.open(
-              'Something went wrong. Please try again later.',
-              '',
-              { duration: 5000 },
-            );
-
-            return;
-          }
-
-          this.oauthCode = code;
-          this.totpObj = this.totp.generateSecret(code);
-          this.currentProvider = 'google';
-        } catch (e) {
-          this.snack.open('Something went wrong. Please try again later.', '', {
-            duration: 5000,
-          });
-        }
-      }
-    }, 1000);
+    this.handleDesktopOauth(url, 'discord');
   }
 
   async authorize() {
@@ -145,19 +137,14 @@ export class AuthComponent {
         await this.router.navigate(['home']);
       })
       .catch((err) => {
-        if ('Invalid MFA code' === err.error) {
-          this.snack.open(
-            'Invalid code provided. Please re-authenticate.',
-            '',
-            {
-              duration: 5000,
-            },
-          );
-        } else {
-          this.snack.open('Something went wrong. Please try again later.', '', {
-            duration: 5000,
-          });
-        }
+        const message =
+          'Invalid MFA code' === err.error
+            ? 'Invalid code provided. Please re-authenticate.'
+            : 'Something went wrong. Please try again later.';
+
+        this.snack.open(message, '', {
+          duration: 5000,
+        });
 
         this.loading = false;
         this.totpObj = null;
@@ -174,7 +161,7 @@ export class AuthComponent {
 
   protected readonly getFirstError = getFirstError;
 
-  popDiscord(url: string) {
+  handleDesktopOauth(url: string, provider: string) {
     this.loading = true;
     const popup = window.open(url, 'name', 'height=600,width=450');
     if (null != window.focus && null != popup) {
@@ -199,7 +186,7 @@ export class AuthComponent {
 
           this.oauthCode = code;
           this.totpObj = this.totp.generateSecret(code);
-          this.currentProvider = 'discord';
+          this.currentProvider = provider;
         } catch (e) {
           this.snack.open('Something went wrong. Please try again later.', '', {
             duration: 5000,
