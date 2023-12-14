@@ -105,7 +105,7 @@ export class ServicesComponent {
     try {
       const response = await fetch(apiUrl, {
         headers: {
-          'User-Agent': 'Butane Browser / 1.0.0',
+          'User-Agent': 'Butane Browser/1.0.0',
         },
       });
       const data = await response.text();

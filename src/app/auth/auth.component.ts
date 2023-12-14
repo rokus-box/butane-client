@@ -49,7 +49,7 @@ export class AuthComponent {
     'https://discord.com/api/oauth2/authorize?client_id=1178419723390685326&redirect_uri=http://localhost:4200/auth/discord&response_type=code&scope=email identify';
 
   authFormGroup = this.fb.group(PasswordForm, {
-    password: ['testPhrase1*'],
+    password: [''],
   });
 
   constructor(
