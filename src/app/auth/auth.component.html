@@ -34,7 +34,10 @@
     </button>
     <button
       (click)="popDiscord(discordUrl)"
-      [disabled]="loading" class="oauth-btn" mat-stroked-button>
+      [disabled]="loading"
+      class="oauth-btn"
+      mat-stroked-button
+    >
       <mat-icon svgIcon="discord" />
       Continue with Discord
     </button>
@@ -47,7 +50,7 @@
       registering.checked
         ? "Please scan the QR code with your authenticator app."
         : "Enter the code from your authenticator app."
-      }}</mat-card-subtitle>
+    }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-slide-toggle
@@ -92,19 +95,18 @@
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input #pass type="password" formControlName="password" matInput />
-          <button
-            matSuffix
-            (click)="
-                pass.type = pass.type === 'text' ? 'password' : 'text'"
-            mat-icon-button
-          >
-            <mat-icon>{{
-                pass.type === "text" ? "visibility" : "visibility_off"
-              }}</mat-icon>
-          </button>
+        <button
+          matSuffix
+          (click)="pass.type = pass.type === 'text' ? 'password' : 'text'"
+          mat-icon-button
+        >
+          <mat-icon>{{
+            pass.type === "text" ? "visibility" : "visibility_off"
+          }}</mat-icon>
+        </button>
         <mat-error>{{
           getFirstError(authFormGroup.controls["password"])
-          }}</mat-error>
+        }}</mat-error>
       </mat-form-field>
     </form>
     <button

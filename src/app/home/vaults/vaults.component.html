@@ -13,7 +13,7 @@
 </form>
 <main>
   <i *ngIf="!loading && vaults.length === 0"
-  >Looks like you don't have any Vaults yet. Create one to get started!</i
+    >Looks like you don't have any Vaults yet. Create one to get started!</i
   >
   <mat-card *ngFor="let vault of vaults">
     <mat-card-header>
@@ -48,5 +48,5 @@
   matTooltip="You can create up to 9 Vaults and 180 Secrets total"
   style="margin-left: 1em"
   *ngIf="!loading"
->{{ vaults.length }} / 9</i
+  >{{ vaults.length }} / 9</i
 >

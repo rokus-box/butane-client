@@ -14,7 +14,7 @@
           <button mat-icon-button (click)="toggleLightTheme()">
             <mat-icon [@themeButtonAnimation]="themeButtonState">{{
               themeService.isLightTheme() ? "brightness_4" : "brightness_7"
-              }}</mat-icon>
+            }}</mat-icon>
           </button>
         </div>
       </div>
@@ -34,11 +34,11 @@
               charsInputFc.errors?.["required"]
                 ? "Required"
                 : charsInputFc.errors?.["minlength"]
-                  ? "Minimum 26 characters"
-                  : charsInputFc.errors?.["maxlength"]
-                    ? "Maximum 94 characters"
-                    : "Character Set"
-              }}</mat-label>
+                ? "Minimum 26 characters"
+                : charsInputFc.errors?.["maxlength"]
+                ? "Maximum 94 characters"
+                : "Character Set"
+            }}</mat-label>
             <input [formControl]="charsInputFc" matInput placeholder="ABC" />
             <mat-error>Anansi</mat-error>
           </mat-form-field>
@@ -61,7 +61,7 @@
           <mat-slide-toggle
             (mouseenter)="escapeFromCursor(twofaToggle)"
             #twofaToggle
-            checked
+            [checked]="true"
             (click)="twofaToggle.writeValue(true)"
           />
         </div>
