@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgScrollbar } from 'ngx-scrollbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const routes: Routes = [{ path: '', component: AuditLogComponent }];
 
@@ -18,6 +19,7 @@ const routes: Routes = [{ path: '', component: AuditLogComponent }];
     MatIconModule,
     MatProgressBarModule,
     NgScrollbar,
+    MatTooltipModule,
   ],
 })
 export class AuditLogModule {}
