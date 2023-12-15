@@ -44,20 +44,6 @@ export class FlameComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const canvas = this.canvas.nativeElement;
-
-    setTimeout(() => {
-      // Decrease opacity of canvas gradually and then remove it eventually to not hurt performance
-      for (let i = 0; i < 100; i++) {
-        setTimeout(() => {
-          canvas.style.opacity = (100 - i) / 100 + '';
-        }, i * 10);
-      }
-
-      setTimeout(() => {
-        canvas.remove();
-      }, 1000);
-    }, 60000 * 5);
-
     class Particle {
       [x: string]: any;
 
