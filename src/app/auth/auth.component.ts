@@ -41,12 +41,17 @@ export class AuthComponent {
   oauthCode = '';
   currentProvider = '';
   isRegistering = true;
+  rdrUri = 'https://butane.rokusbox.com';
 
   googleUrl =
-    'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:4200/auth/google&client_id=470074248070-456k1vvum68rqg85u4ritcqcseqfs4br.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.email';
+    'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=' +
+    this.rdrUri +
+    '/auth/google&client_id=470074248070-456k1vvum68rqg85u4ritcqcseqfs4br.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.email';
 
   discordUrl =
-    'https://discord.com/api/oauth2/authorize?client_id=1178419723390685326&redirect_uri=http://localhost:4200/auth/discord&response_type=code&scope=email identify';
+    'https://discord.com/api/oauth2/authorize?client_id=1178419723390685326&redirect_uri=' +
+    this.rdrUri +
+    '/auth/discord&response_type=code&scope=email identify';
 
   authFormGroup = this.fb.group(PasswordForm, {
     password: [''],
