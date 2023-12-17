@@ -1,11 +1,14 @@
 <main>
   <mat-toolbar>
-    <h2><i>Butane</i>: Explosive Vault</h2>
-    <span class="spacer"></span>
+    <span *ngIf="isMobile" class="spacer"></span>
+    <h2 *ngIf="!isMobile" ><i>Butane</i>: Explosive Vault</h2>
+    <span *ngIf="!isMobile" class="spacer"></span>
     <a color="primary" mat-stroked-button routerLink="/auth">
       <mat-icon>open_in_new</mat-icon>
-      Start Using</a
+    {{isMobile ? 'Start Using Butane': 'Start Using'}}
+    </a
     >
+    <span *ngIf="isMobile" class="spacer"></span>
   </mat-toolbar>
   <span class="br"></span>
   <div>
@@ -57,4 +60,4 @@
     Source code: <a class="footer-link" target="_blank" rel="noopener" href="https://github.com/rokus-box/">GitHub</a>
   </div>
 </footer>
-<app-flame></app-flame>
+<app-flame *ngIf="!isMobile" ></app-flame>

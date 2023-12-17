@@ -5,6 +5,11 @@
     align-items: center;
     flex-direction: column;
 
+    // On mobile make the text smaller
+    @media (max-width: 600px) {
+      font-size: 0.8em;
+    }
+
     div {
       display: flex;
       flex-direction: column;
