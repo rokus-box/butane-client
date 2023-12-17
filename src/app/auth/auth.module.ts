@@ -13,8 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { NgxMaskDirective } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlameComponent } from '../shared/components/flame/flame.component';
 import { RouterModule, Routes } from '@angular/router';
+import { FlameComponent } from '../shared/components/flame/flame.component';
 
 const routes: Routes = [
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AuthComponent, FlameComponent],
+  declarations: [AuthComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -45,6 +45,7 @@ const routes: Routes = [
     NgxMaskDirective,
     FormsModule,
     ReactiveFormsModule,
+    FlameComponent,
   ],
   exports: [RouterModule],
 })

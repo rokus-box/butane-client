@@ -57,7 +57,8 @@ export class CryptoService {
           this.sodium.from_base64(key),
         ),
       );
-    } catch {
+    } catch (e) {
+      console.log('e', e);
       this.snack.open('Some items could not be decrypted', 'Dismiss', {
         duration: 5000,
       });

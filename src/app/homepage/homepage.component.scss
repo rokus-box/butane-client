@@ -1,0 +1,46 @@
+:host {
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      max-width: 50em;
+    }
+  }
+
+  i {
+    color: #ef6c00;
+  }
+
+  .br {
+    margin-bottom: 20px;
+  }
+
+  .vr {
+    border-left: 1px solid #ef6c00;
+    height: 2em;
+    margin: 0 0.5em 0 0;
+  }
+
+  a {
+    &:hover {
+      color: rgb(255, 205, 164);
+    }
+
+    color: #ef6c00;
+    text-decoration: none;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1em 0;
+    background-color: #00000070;
+  }
+}

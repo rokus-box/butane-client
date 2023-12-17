@@ -41,7 +41,8 @@ export class AuthComponent {
   oauthCode = '';
   currentProvider = '';
   isRegistering = true;
-  rdrUri = 'https://butane.rokusbox.com';
+  //rdrUri = 'https://butane.rokusbox.com';
+  rdrUri = 'http://localhost:4200';
 
   googleUrl =
     'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=' +
@@ -193,6 +194,7 @@ export class AuthComponent {
           this.totpObj = this.totp.generateSecret(code);
           this.currentProvider = provider;
         } catch (e) {
+          console.log(e);
           this.snack.open('Something went wrong. Please try again later.', '', {
             duration: 5000,
           });

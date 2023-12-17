@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-flame',
+  standalone: true,
   template: `
     <div>
       <canvas #flameCanvas></canvas>
@@ -70,8 +71,10 @@ export class FlameComponent implements AfterViewInit {
     }
 
     function loop() {
-      requestAnimationFrame(loop);
-      draw();
+      setTimeout(function () {
+        requestAnimationFrame(loop);
+        draw();
+      }, 1000 / 144);
     }
 
     function draw() {

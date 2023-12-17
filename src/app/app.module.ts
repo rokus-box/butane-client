@@ -28,10 +28,15 @@ const routes: Routes = [
   { path: 'tos', loadComponent: () => TosComponent },
   { path: 'pp', loadComponent: () => PpComponent },
   {
-    path: '',
+    path: 'home',
     canActivate: [AuthGuard],
     providers: [MatSnackBar],
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./homepage/homepage.module').then((m) => m.HomepageModule),
   },
   { path: '**', redirectTo: '' },
 ];
