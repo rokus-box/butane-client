@@ -28,9 +28,9 @@ export class SecretsComponent implements OnDestroy {
     } else {
       this.vault!.secrets = this.cachedVault?.secrets?.filter((secret) => {
         return (
-          secret.uri.toLowerCase().includes(value.toLowerCase()) ||
-          secret.username.toLowerCase().includes(value.toLowerCase()) ||
-          secret.display_name.toLowerCase().includes(value.toLowerCase())
+          secret?.uri?.toLowerCase()?.includes(value?.toLowerCase()) ||
+          secret?.username?.toLowerCase()?.includes(value?.toLowerCase()) ||
+          secret?.display_name?.toLowerCase()?.includes(value?.toLowerCase())
         );
       });
     }
