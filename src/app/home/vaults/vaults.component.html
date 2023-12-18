@@ -20,7 +20,7 @@
       <mat-card-title>{{ vault.display_name }}</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <a [routerLink]="['home', 'vaults', vault.id]" color="primary" mat-button>
+      <a [routerLink]="['/home/vaults', vault.id]" color="primary" mat-button>
         <mat-icon>open_in_new</mat-icon>
         Open
       </a>
