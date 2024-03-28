@@ -119,6 +119,8 @@ export class AuthComponent {
         this.snack.open('Something went wrong. Please try again later.', '', {
           duration: 5000,
         });
+      } finally {
+        this.loading = false;
       }
     };
   }
