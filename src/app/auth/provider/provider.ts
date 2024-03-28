@@ -16,6 +16,7 @@ export class Provider {
     private activated: ActivatedRoute,
   ) {
     if (!this.isMobile) {
+      window.opener.CallOnClose(window.location);
       window.close();
       return;
     }

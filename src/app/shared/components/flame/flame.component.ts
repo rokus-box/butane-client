@@ -17,7 +17,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
     `
       div {
         @media (max-width: 768px) {
-          scale: 0.5;
+          display: none;
         }
         position: fixed;
         bottom: 0;

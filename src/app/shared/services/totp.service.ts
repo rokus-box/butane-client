@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class TotpService {
-  private TOTP: any = window['TOTP' as any];
+  private TOTP: any = (<any>window)['TOTP'];
 
   generateSecret(seed: string): { secret: string; url: string } {
     const secret = new this.TOTP(this.TOTP['base32'].encode(seed.slice(-10)));

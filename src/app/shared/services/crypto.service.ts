@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class CryptoService {
-  private sodium: any = window['sodium' as any];
+  private sodium: any = (<any>window)['sodium'];
 
   constructor(private snack: MatSnackBar) {}
 

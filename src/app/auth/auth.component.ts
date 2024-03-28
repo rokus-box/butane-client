@@ -41,7 +41,8 @@ export class AuthComponent {
   oauthCode = '';
   currentProvider = '';
   isRegistering = true;
-  rdrUri = 'https://butane.rokusbox.com';
+  // rdrUri = 'https://butane.rokusbox.com';
+  rdrUri = 'http://localhost:4200';
 
   googleUrl =
     'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=' +
@@ -98,6 +99,28 @@ export class AuthComponent {
       'discord',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/discord.svg'),
     );
+
+    (<any>window).CallOnClose = (loc: Location) => {
+      try {
+        const code = new URL(loc.href).searchParams.get('code');
+        if (null == code || '' == code) {
+          this.snack.open('Something went wrong. Please try again later.', '', {
+            duration: 5000,
+          });
+
+          return;
+        }
+
+        this.oauthCode = code;
+        this.totpObj = this.totp.generateSecret(code);
+        this.currentProvider = provider as string;
+      } catch (e) {
+        console.log(e);
+        this.snack.open('Something went wrong. Please try again later.', '', {
+          duration: 5000,
+        });
+      }
+    };
   }
 
   popGoogle(url: string) {
@@ -168,37 +191,9 @@ export class AuthComponent {
 
   handleDesktopOauth(url: string, provider: string) {
     this.loading = true;
-    const popup = window.open(url, 'name', 'height=600,width=450');
+    const popup = window.open(url, 'name', 'height=800,width=1050,return true');
     if (null != window.focus && null != popup) {
       popup.focus();
     }
-
-    const interval = setInterval(() => {
-      if (popup?.closed) {
-        clearInterval(interval);
-        this.loading = false;
-        try {
-          const code = new URL(popup!.location.href).searchParams.get('code');
-          if (null == code || '' == code) {
-            this.snack.open(
-              'Something went wrong. Please try again later.',
-              '',
-              { duration: 5000 },
-            );
-
-            return;
-          }
-
-          this.oauthCode = code;
-          this.totpObj = this.totp.generateSecret(code);
-          this.currentProvider = provider;
-        } catch (e) {
-          console.log(e);
-          this.snack.open('Something went wrong. Please try again later.', '', {
-            duration: 5000,
-          });
-        }
-      }
-    }, 1000);
   }
 }
