@@ -41,8 +41,8 @@ export class AuthComponent {
   oauthCode = '';
   currentProvider = '';
   isRegistering = true;
-  // rdrUri = 'https://butane.rokusbox.com';
-  rdrUri = 'http://localhost:4200';
+  rdrUri = 'https://butane.rokusbox.com';
+  // rdrUri = 'http://localhost:4200';
 
   googleUrl =
     'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=' +
