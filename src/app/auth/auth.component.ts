@@ -195,7 +195,16 @@ export class AuthComponent {
     this.loading = true;
     const popup = window.open(url, 'name', 'height=800,width=1050,return true');
     if (null != window.focus && null != popup) {
+      this.currentProvider = provider;
       popup.focus();
+    } else {
+      this.snack.open(
+        'Could not open popup. Please try with a different browser.',
+        '',
+        {
+          duration: 5000,
+        },
+      );
     }
   }
 }
