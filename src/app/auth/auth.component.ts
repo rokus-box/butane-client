@@ -113,7 +113,6 @@ export class AuthComponent {
 
         this.oauthCode = code;
         this.totpObj = this.totp.generateSecret(code);
-        this.currentProvider = provider as string;
       } catch (e) {
         console.log(e);
         this.snack.open('Something went wrong. Please try again later.', '', {
@@ -193,9 +192,9 @@ export class AuthComponent {
 
   handleDesktopOauth(url: string, provider: string) {
     this.loading = true;
+    this.currentProvider = provider;
     const popup = window.open(url, 'name', 'height=800,width=1050,return true');
     if (null != window.focus && null != popup) {
-      this.currentProvider = provider;
       popup.focus();
     } else {
       this.snack.open(
